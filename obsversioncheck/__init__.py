@@ -45,8 +45,13 @@ def get_operating_systems(link_to_repository):
 
 
 def parse_repository(link_to_repository):
-    print("Parsing {0}".format(link_to_repository))
-    return {split_name_and_version(sw)[0]: split_name_and_version(sw)[1] for sw in get_software_from_repository(link_to_repository)}
+    print("Parsing repo: {0}".format(link_to_repository))
+
+    try:
+        return {split_name_and_version(sw)[0]: split_name_and_version(sw)[1] for sw in get_software_from_repository(link_to_repository)}
+    except Exception as err:
+        print("Fuck: {0}".format(err))
+        return {}
 
 
 def get_software_from_repository(link_to_repository):
