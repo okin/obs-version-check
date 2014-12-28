@@ -3,7 +3,7 @@
 <h1>{{ project }}</h1>
 
 <ul>
-{% for os in systems %}
+{% for os in systems|sort %}
 <li>{{ os }}</li>
 {% endfor %}
 </ul>
