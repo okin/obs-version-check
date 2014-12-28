@@ -26,7 +26,7 @@ def get_versions(project):
     software = {}
     for operating_system in get_operating_systems(repo):
         print("Found OS: {name}".format(name=operating_system))
-        software[operating_system] = parse_repository('{repo}/{os}/'.format(repo=repo, os=operating_system))
+        software[operating_system] = parse_repository('{repo}{os}'.format(repo=repo, os=operating_system))
 
     print("Software is: {0}".format(software))
     return software
