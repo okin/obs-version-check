@@ -36,9 +36,7 @@ def show_overview():
     if not PROJECTS_TO_CHECK:
         return "No projects configured."
 
-    projects = {}
-    for project in PROJECTS_TO_CHECK:
-        projects[project] = get_versions(project)
+    projects = {project: get_operating_systems(project) for project in PROJECTS_TO_CHECK}
 
     return render_template('overview.html', projects=projects)
 
