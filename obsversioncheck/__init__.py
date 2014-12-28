@@ -12,12 +12,15 @@ PROJECTS_TO_CHECK = (
 )
 
 @app.route("/")
-def hello():
-    for project in PROJECTS_TO_CHECK:
-        return str(get_versions(project))
+def show_overview():
+    if not PROJECTS_TO_CHECK:
+        return "No projects configured."
 
-    return "hello world"
-    #return get_versions()
+    projects = {}
+    for project in PROJECTS_TO_CHECK:
+        projects[project] = get_versions(project)
+
+    return str(projects)
 
 
 def get_versions(project):
