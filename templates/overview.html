@@ -1,11 +1,11 @@
 <!doctype html>
 <title>OBS version check overview</title>
-{% for project in projects %}
+{% for project in projects|sort %}
   <h1>{{ project }}</h1>
 
   <ul>
-  {% for software in projects[project] %}
-  <li>{{ software }}</li>
+  {% for os in projects[project]|sort %}
+  <li><a href="/{{ project }}/{{ os }}/">{{ os }}</a></li>
   {% endfor %}
   </ul>
 {% endfor %}

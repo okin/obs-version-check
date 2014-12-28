@@ -3,7 +3,7 @@
 <h1>{{ os }}</h1>
 
 <ul>
-{% for software, version in software.items() %}
+{% for software, version in software.items()|sort %}
 <li>{{ software }} - {{ version }}</li>
 {% endfor %}
 </ul>
