@@ -65,4 +65,7 @@ class ParseRepoInformationTestCase(unittest.TestCase):
     def test_splitting_name_and_version(self):
         self.assertEquals(('cabextract', '1.2-5.2'), split_name_and_version('cabextract-1.2-5.2.i586.rpm'))
         self.assertEquals(('opsi-configed', '4.0.5.1.8-1'), split_name_and_version('opsi-configed_4.0.5.1.8-1_all.deb'))
-
+        self.assertEquals(('opsi-atftp', '0.7.dfsg-4'), split_name_and_version('opsi-atftp_0.7.dfsg-4_amd64.deb'))
+        self.assertEquals(('python-crypto', '2.1.0-5.2'), split_name_and_version('python-crypto-2.1.0-5.2.i386.rpm'))
+        self.assertEquals(('libmagic1-x86', '5.21-5.1'), split_name_and_version('libmagic1-x86-5.21-5.1.ia64.rpm'))
+        self.assertEquals(('cabextract', '1.2-5.5'), split_name_and_version('cabextract-1.2-5.5.i686.rpm'))

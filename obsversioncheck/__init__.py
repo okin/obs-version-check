@@ -66,12 +66,10 @@ def get_software_from_repository(link_to_repository):
 
 
 def split_name_and_version(filename):
-    # self.assertEquals(('cabextract', '1.2-5.2'), split_name_and_version('cabextract-1.2-5.2.i586.rpm'))
-    #     self.assertEquals(('opsi-configed', '4.0.5.1.8-1'), split_name_and_version('opsi-configed_4.0.5.1.8-1_all.deb'))
     if filename.endswith('.rpm'):
-        match = re.search('(?P<name>[\w_-]+)-(?P<version>.+)\.(i586|x86_64|noarch|src)\.rpm', filename)
+        match = re.search('(?P<name>[\w_-]+)-(?P<version>.+)\.(i\d86|ia64|x86_64|noarch|src)\.rpm', filename)
     elif filename.endswith('.deb'):
-        match = re.search('(?P<name>[\w_-]+)_(?P<version>.+)_(i586|x86_64|all)\.deb', filename)
+        match = re.search('(?P<name>[\w_-]+)_(?P<version>.+)_(i\d86|amd64|all)\.deb', filename)
     else:
         match = None
 
