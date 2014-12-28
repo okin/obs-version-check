@@ -41,8 +41,8 @@ def get_link_to_project_repository(project):
     return 'http://download.opensuse.org/repositories/{project}/'.format(project=project.replace(':', r':/'))
 
 
-def get_operating_systems(link_to_repository):
-    request = requests.get(link_to_repository)
+def get_operating_systems(project):
+    request = requests.get(get_link_to_project_repository(project))
 
     # Links will look like: <a href="Univention_3.2/">Univention_3.2/</a>
     for finding in re.findall('<a href="(?P<os>[\w.-]+)/">(?P=os)/</a>', request.text):
