@@ -1,0 +1,9 @@
+<!doctype html>
+<title>Overview for {{os}} in {{project}}</title>
+<h1>{{ os }}</h1>
+
+<ul>
+{% for software, version in software.items() %}
+<li>{{ software }} - {{ version }}</li>
+{% endfor %}
+</ul>

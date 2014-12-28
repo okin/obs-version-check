@@ -3,7 +3,7 @@
 
 import re
 import requests
-from flask import Flask
+from flask import Flask, render_template
 # app = Flask(__name__)
 app = Flask("obsversioncheck")
 
@@ -12,6 +12,24 @@ PROJECTS_TO_CHECK = (
     'home:uibmz:opsi:opsi40-testing',
     'home:uibmz:opsi:opsi40-experimental',
 )
+
+
+@app.route('/<project>/<os>/')
+@app.route('/<project>/')
+def show_project(project, os=None):
+    if project not in PROJECTS_TO_CHECK:
+        return "Unconfigured project: {0}".format(project)
+
+    operating_systems = list(get_operating_systems(project))
+    if os is None:
+        return render_template('project.html', project=project, systems=operating_systems)
+    elif os not in operating_systems:
+        return "Invalid OS. Valid OS: {0}".format(', '.join(operating_systems))
+
+    repo_url = get_link_to_project_repository(project, os)
+    software = parse_repository(repo_url)
+
+    return render_template('os.html', project=project, os=os, software=software)
 
 @app.route("/")
 def show_overview():
@@ -22,23 +40,27 @@ def show_overview():
     for project in PROJECTS_TO_CHECK:
         projects[project] = get_versions(project)
 
-    return str(projects)
+    return render_template('overview.html', projects=projects)
 
 
 def get_versions(project):
     repo = get_link_to_project_repository(project)
 
     software = {}
-    for operating_system in get_operating_systems(repo):
+    for operating_system in get_operating_systems(project):
         print("Found OS: {name}".format(name=operating_system))
-        software[operating_system] = parse_repository('{repo}{os}'.format(repo=repo, os=operating_system))
+        repo_url = get_link_to_project_repository(project, operating_system)
+        software[operating_system] = parse_repository(repo_url)
 
-    print("Software is: {0}".format(software))
+    print("Software in {project} is: {0}".format(software, project=project))
     return software
 
 
-def get_link_to_project_repository(project):
-    return 'http://download.opensuse.org/repositories/{project}/'.format(project=project.replace(':', r':/'))
+def get_link_to_project_repository(project, os=None):
+    if os is None:
+        return 'http://download.opensuse.org/repositories/{project}/'.format(project=project.replace(':', r':/'))
+    else:
+        return 'http://download.opensuse.org/repositories/{project}/{os}'.format(project=project.replace(':', r':/'), os=os)
 
 
 def get_operating_systems(project):
