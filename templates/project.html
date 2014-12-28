@@ -2,8 +2,9 @@
 <title>Overview for {{ project }}</title>
 <h1>{{ project }}</h1>
 
+<h2>Operating System</h2>
 <ul>
 {% for os in systems|sort %}
-<li>{{ os }}</li>
+<li><a href="/{{ project }}/{{ os }}/">{{ os }}</a></li>
 {% endfor %}
 </ul>
