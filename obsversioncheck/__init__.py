@@ -9,6 +9,8 @@ app = Flask("obsversioncheck")
 
 PROJECTS_TO_CHECK = (
     'home:uibmz:opsi:opsi40',
+    'home:uibmz:opsi:opsi40-testing',
+    'home:uibmz:opsi:opsi40-experimental',
 )
 
 @app.route("/")
