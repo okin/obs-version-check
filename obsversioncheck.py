@@ -22,12 +22,30 @@ def show_project(project, os=None):
         return "Unconfigured project: {0}".format(project)
 
     operating_systems = list(get_operating_systems(project))
+    repo_url = get_link_to_project_repository(project, os)
+
     if os is None:
-        return render_template('project.html', project=project, systems=operating_systems)
+        if IMPORTANT_SOFTWARE:
+            important_software = {}
+            for (software, version) in parse_repository(repo_url).items():
+                if software not in IMPORTANT_SOFTWARE:
+                    continue
+
+                if software in important_software:
+                    if version > important_software[software]:
+                        important_software[software] = version
+                else:
+                    important_software[software] = version
+        else:
+            important_software = {}
+
+        return render_template('project.html',
+                               project=project,
+                               systems=operating_systems,
+                               important_software=important_software)
     elif os not in operating_systems:
         return "Invalid OS. Valid OS: {0}".format(', '.join(operating_systems))
 
-    repo_url = get_link_to_project_repository(project, os)
     software = parse_repository(repo_url)
 
     return render_template('os.html',
