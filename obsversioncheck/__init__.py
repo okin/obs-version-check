@@ -73,7 +73,7 @@ def split_name_and_version(filename):
     if match:
         return (match.group('name'), match.group('version'))
 
-    raise ValueError("Unable to split software name and version.")
+    raise ValueError("Unable to split software name and version from {0}".format(filename))
 
 
 if __name__ == "__main__":
