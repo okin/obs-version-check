@@ -2,8 +2,24 @@
 <title>Overview for {{os}} in {{project}}</title>
 <h1>{{ os }}</h1>
 
+{% if important_software %}
+<h2>Important Software</h2>
 <ul>
 {% for software, version in software.items()|sort %}
+{% if software in important_software %}
 <li>{{ software }} - {{ version }}</li>
+{% endif %}
+{% endfor %}
+</ul>
+{% endif %}
+
+<h2>All Software</h2>
+<ul>
+{% for software, version in software.items()|sort %}
+{% if software in important_software %}
+<li><strong>{{ software }} - {{ version }}</strong></li>
+{% else %}
+<li>{{ software }} - {{ version }}</li>
+{% endif %}
 {% endfor %}
 </ul>

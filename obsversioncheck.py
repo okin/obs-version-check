@@ -12,6 +12,7 @@ PROJECTS_TO_CHECK = (
     'home:uibmz:opsi:opsi40-testing',
     'home:uibmz:opsi:opsi40-experimental',
 )
+IMPORTANT_SOFTWARE = ('python-opsi', 'opsiconfd')
 
 
 @app.route('/<project>/<os>/')
@@ -29,7 +30,11 @@ def show_project(project, os=None):
     repo_url = get_link_to_project_repository(project, os)
     software = parse_repository(repo_url)
 
-    return render_template('os.html', project=project, os=os, software=software)
+    return render_template('os.html',
+                           project=project,
+                           os=os,
+                           software=software,
+                           important_software=IMPORTANT_SOFTWARE)
 
 @app.route("/")
 def show_overview():
