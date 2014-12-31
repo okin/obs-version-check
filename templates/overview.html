@@ -1,12 +1,42 @@
-<!doctype html>
-<title>OBS version check overview</title>
-<h1>Project Overview</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- META -->
+    <title>project overview</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/kickstart.css') }}" media="all" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" media="all" />
+
+    <!-- Javascript -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/kickstart.js') }}"></script>
+</head>
+<body>
+<div>
+<ul class="breadcrumbs">
+<li><a href="">Overview</a></li>
+</ul>
+</div>
+<div class="grid">
+    <div class="col_12">
+       <h1>Project Overview</h1>
+    </div>
 
 {% for project in projects|sort %}
-  <h2>Project: <a href="/{{ project }}/">{{ project }}</a></h2>
+    <div class="col_12">
+  <h2><i class="icon-sitemap"></i>&nbsp;<a href="/{{ project }}/">{{ project }}</a></h2>
 
   Including repositories for:
   {% for os in projects[project]|sort %}
   <a href="/{{ project }}/{{ os }}/">{{ os }}</a>
   {% endfor %}
+    </div>
 {% endfor %}
+
+</div> <!-- End Grid -->
+</body>
+</html>

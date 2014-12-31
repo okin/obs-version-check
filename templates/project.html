@@ -1,19 +1,52 @@
-<!doctype html>
-<title>Overview for {{ project }}</title>
-<h1>{{ project }}</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- META -->
+    <title>Overview for {{ project }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/kickstart.css') }}" media="all" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" media="all" />
+
+    <!-- Javascript -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/kickstart.js') }}"></script>
+</head>
+<body>
+<div>
+<ul class="breadcrumbs">
+<li><a href="..">Overview</a></li>
+<li><a href="">{{ project}}</a></li>
+</ul>
+</div>
+<div class="grid">
+    <div class="col_12">
+        <h1>{{ project }}</h1>
+    </div>
 
 {% if important_software %}
-<h2>Latest Software</h2>
-<ul>
-{% for software, version in important_software.items()|sort %}
-<li>{{ software }} - {{ version }}</li>
-{% endfor %}
-</ul>
+    <div class="col_12">
+        <h2>Latest Software</h2>
+        <ul>
+        {% for software, version in important_software.items()|sort %}
+        <li><strong>{{ software }} - {{ version }}</strong></li>
+        {% endfor %}
+        </ul>
+    </div>
 {% endif %}
 
-<h2>Operating System</h2>
-<ul>
-{% for os in systems|sort %}
-<li><a href="/{{ project }}/{{ os }}/">{{ os }}</a></li>
-{% endfor %}
-</ul>
+    <div class="col_12">
+        <h2>Operating System</h2>
+        <ul>
+        {% for os in systems|sort %}
+            <li><a href="/{{ project }}/{{ os }}/">{{ os }}</a></li>
+        {% endfor %}
+        </ul>
+    </div>
+
+</div> <!-- End Grid -->
+</body>
+</html>

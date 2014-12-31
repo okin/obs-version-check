@@ -1,25 +1,59 @@
-<!doctype html>
-<title>Overview for {{os}} in {{project}}</title>
-<h1>{{ os }}</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- META -->
+    <title>Overview for {{os}} in {{project}}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/kickstart.css') }}" media="all" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" media="all" />
+
+    <!-- Javascript -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/kickstart.js') }}"></script>
+</head>
+<body>
+<div>
+<ul class="breadcrumbs">
+<li><a href="../..">Overview</a></li>
+<li><a href="..">{{ project}}</a></li>
+<li><a href="">{{ os }}</a></li>
+</ul>
+</div>
+<div class="grid">
+    <div class="col_12">
+        <h1>{{ os }}</h1>
+    </div>
+
 
 {% if important_software %}
-<h2>Important Software</h2>
-<ul>
-{% for software, version in software.items()|sort %}
-{% if software in important_software %}
-<li>{{ software }} - {{ version }}</li>
-{% endif %}
-{% endfor %}
-</ul>
+    <div class="col_12">
+        <h2><i class="icon-exclamation-sign"></i>&nbsp;Important Software</h2>
+        <ul>
+        {% for software, version in software.items()|sort %}
+            {% if software in important_software %}
+            <li>{{ software }} - {{ version }}</li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    </div>
 {% endif %}
 
-<h2>All Software</h2>
-<ul>
-{% for software, version in software.items()|sort %}
-{% if software in important_software %}
-<li><strong>{{ software }} - {{ version }}</strong></li>
-{% else %}
-<li>{{ software }} - {{ version }}</li>
-{% endif %}
-{% endfor %}
-</ul>
+    <div class="col_12">
+        <h2>All Software</h2>
+        <ul>
+        {% for software, version in software.items()|sort %}
+            {% if software in important_software %}
+            <li><strong>{{ software }} - {{ version }}</strong></li>
+            {% else %}
+            <li>{{ software }} - {{ version }}</li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    </div>
+</div> <!-- End Grid -->
+</body>
+</html>
