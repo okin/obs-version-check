@@ -11,7 +11,14 @@ PROJECTS_TO_CHECK = (
     'home:uibmz:opsi:opsi40-testing',
     'home:uibmz:opsi:opsi40-experimental',
 )
-IMPORTANT_SOFTWARE = ('python-opsi', 'opsiconfd')
+IMPORTANT_SOFTWARE = ('opsi-configed',
+                      'opsi-depotserver',
+                      'opsi-linux-bootimage',
+                      'opsi-nagios-plugins',
+                      'opsi-utils',
+                      'opsiconfd',
+                      'opsipxeconfd',
+                      'python-opsi')
 
 
 @app.route('/<project>/<os>/')
