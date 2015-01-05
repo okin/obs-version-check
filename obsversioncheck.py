@@ -4,8 +4,7 @@
 import re
 import requests
 from flask import Flask, render_template
-# app = Flask(__name__)
-app = Flask("obsversioncheck")
+app = Flask(__name__)
 
 PROJECTS_TO_CHECK = (
     'home:uibmz:opsi:opsi40',
