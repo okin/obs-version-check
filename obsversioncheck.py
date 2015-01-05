@@ -93,9 +93,8 @@ def get_link_to_project_repository(project, os=None):
 def get_operating_systems(project):
     request = requests.get(get_link_to_project_repository(project))
 
-    # Links will look like: <a href="Univention_3.2/">Univention_3.2/</a>
-    for finding in re.findall('<a href="(?P<os>[\w.-]+)/">(?P=os)/</a>', request.text):
-        yield finding
+    for os in re.findall('<a href="(?P<os>[\w.-]+)/">(?P=os)/</a>', request.text):
+        yield os
 
 
 def parse_repository(link_to_repository):
@@ -112,8 +111,8 @@ def get_software_from_repository(link_to_repository):
     for folder in re.findall('<a href="(?P<folder>[\w_]+/)">(?P=folder)</a>', request.text):
         yield from get_software_from_repository('/'.join((link_to_repository, folder)))
 
-    for finding in re.findall('<a href="(?P<file>[\w\d._-]+(\.rpm|\.deb))">(?P=file)</a>', request.text):
-        yield finding[0]  # we have a tuple, only want first item
+    for filename in re.findall('<a href="(?P<file>[\w\d._-]+(\.rpm|\.deb))">(?P=file)</a>', request.text):
+        yield filename[0]  # we have a tuple, only want first item
 
 
 def split_name_and_version(filename):
