@@ -77,11 +77,9 @@ def get_versions(project):
 
     software = {}
     for operating_system in get_operating_systems(project):
-        print("Found OS: {name}".format(name=operating_system))
         repo_url = get_link_to_project_repository(project, operating_system)
         software[operating_system] = parse_repository(repo_url)
 
-    print("Software in {project} is: {0}".format(software, project=project))
     return software
 
 
@@ -101,18 +99,14 @@ def get_operating_systems(project):
 
 
 def parse_repository(link_to_repository):
-    print("Parsing repo: {0}".format(link_to_repository))
-
     try:
         return {split_name_and_version(sw)[0]: split_name_and_version(sw)[1]
                 for sw in get_software_from_repository(link_to_repository)}
     except Exception as err:
-        print("Fuck: {0}".format(err))
         return {}
 
 
 def get_software_from_repository(link_to_repository):
-    print("Parsing {0}".format(link_to_repository))
     request = requests.get(link_to_repository)
 
     for folder in re.findall('<a href="(?P<folder>[\w_]+/)">(?P=folder)</a>', request.text):
